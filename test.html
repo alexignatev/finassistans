@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест компонентов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Тест загрузки компонентов</h1>
+                <p class="hero-subtitle">Проверка работы header и footer</p>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <div class="content-block">
+                    <h2>Статус загрузки</h2>
+                    <p>Если вы видите навигацию сверху и футер снизу, значит компоненты загрузились успешно.</p>
+                    <p>Если видите "Загрузка...", значит есть проблемы с загрузкой файлов компонентов.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="components/loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ситуации</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Ситуации</h1>
+                <p class="hero-subtitle">Описание типовых ситуаций</p>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <div class="cards-grid">
+                    <div class="card" onclick="window.location.href='situations/emergency.html'">
+                        <h3>Экстренная стабилизация</h3>
+                        <p>Отказ банка, кассовый разрыв, ковенанты</p>
+                    </div>
+                    
+                    <div class="card" onclick="window.location.href='situations/deviations.html'">
+                        <h3>Нарастающие отклонения</h3>
+                        <p>Маржа, издержки, отчеты «врут»</p>
+                    </div>
+                    
+                    <div class="card" onclick="window.location.href='situations/deal.html'">
+                        <h3>Подготовка к сделке/финансированию</h3>
+                        <p>Прозрачность, предсказуемость</p>
+                    </div>
+                    
+                    <div class="card" onclick="window.location.href='situations/dispute.html'">
+                        <h3>Спор акционеров/требование кредитора</h3>
+                        <p>Внешний мандат на изменения</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="components/loader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
