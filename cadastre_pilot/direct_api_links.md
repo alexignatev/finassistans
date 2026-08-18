@@ -1,0 +1,17 @@
+# Temporary NSPD direct links
+
+- [22:43:010001:1229](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A010001%3A1229&limit=20)
+- [22:43:010001:1233](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A010001%3A1233&limit=20)
+- [22:43:010001:1246](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A010001%3A1246&limit=20)
+- [22:43:010001:1272](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A010001%3A1272&limit=20)
+- [22:43:040001:1313](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040001%3A1313&limit=20)
+- [22:43:040001:1564](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040001%3A1564&limit=20)
+- [22:43:040001:1571](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040001%3A1571&limit=20)
+- [22:43:040001:1575](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040001%3A1575&limit=20)
+- [22:43:010001:1227](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A010001%3A1227&limit=20)
+- [22:43:010001:1235](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A010001%3A1235&limit=20)
+- [22:43:010001:1236](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A010001%3A1236&limit=20)
+- [22:43:040001:1300](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040001%3A1300&limit=20)
+- [22:43:040001:1301](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040001%3A1301&limit=20)
+- [22:43:040001:1302](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040001%3A1302&limit=20)
+- [22:43:040002:513](https://nspd.gov.ru/api/geoportal/v2/search/geoportal?thematicSearchId=1&query=22%3A43%3A040002%3A513&limit=20)
