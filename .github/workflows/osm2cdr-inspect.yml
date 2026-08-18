@@ -1,0 +1,36 @@
+name: Inspect OSM2CDR cadastral converter
+
+on:
+  push:
+    branches: ["cadastre-pilot-run"]
+    paths:
+      - "osm2cdr_inspect/**"
+      - ".github/workflows/osm2cdr-inspect.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install browser dependencies
+        run: |
+          python -m pip install --upgrade playwright requests beautifulsoup4
+          python -m playwright install --with-deps chromium
+      - name: Inspect page and submit a cadastral number
+        run: python osm2cdr_inspect/inspect.py
+      - name: Upload browser trace and extracted endpoints
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: osm2cdr-inspect
+          path: osm2cdr_result
+          if-no-files-found: warn
+          retention-days: 7
