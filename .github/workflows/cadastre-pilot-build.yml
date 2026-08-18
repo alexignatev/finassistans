@@ -1,0 +1,46 @@
+name: Build cadastral visual pilot package
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "cadastre_pilot_builder.py"
+      - "cadastre_pilot_data/**"
+      - ".github/workflows/cadastre-pilot-build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install GIS and image libraries
+        run: |
+          python -m pip install --upgrade \
+            requests numpy pillow matplotlib rasterio shapely pyproj \
+            pystac-client planetary-computer scipy
+      - name: Build pilot package
+        run: python cadastre_pilot_builder.py 2>&1 | tee cadastre_pilot_build.log
+      - name: Preserve build log
+        if: always()
+        run: |
+          mkdir -p cadastre_pilot_output
+          cp cadastre_pilot_build.log cadastre_pilot_output/build.log || true
+      - name: Upload pilot package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cadastre-pilot-22-43-010001-1229
+          path: |
+            cadastre_pilot_output.zip
+            cadastre_pilot_output
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
