@@ -13,13 +13,17 @@ on:
       - ".github/workflows/cadastre-probe.yml"
   workflow_dispatch:
 
+concurrency:
+  group: cadastre-probe-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
