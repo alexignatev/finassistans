@@ -9,7 +9,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "cadastre_pilot/probe.py"
+      - "cadastre_pilot/proxy_probe.py"
       - ".github/workflows/cadastre-probe.yml"
   workflow_dispatch:
 
@@ -23,7 +23,7 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,8 +36,8 @@ jobs:
       - name: Install requests
         run: python -m pip install --upgrade requests
 
-      - name: Query NSPD and count parcel components
-        run: python cadastre_pilot/probe.py 2>&1 | tee cadastre_probe.log
+      - name: Query NSPD through independent read-through proxies
+        run: python cadastre_pilot/proxy_probe.py 2>&1 | tee cadastre_probe.log
 
       - name: Preserve logs
         if: always()
@@ -53,12 +53,3 @@ jobs:
           path: cadastre_result
           if-no-files-found: warn
           retention-days: 7
-
-      - name: Commit results on main push
-        if: github.event_name == 'push'
-        run: |
-          git config user.name "cadastre-pilot-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add cadastre_result
-          git diff --cached --quiet || git commit -m "Add cadastral probe results [skip ci]"
-          git push
