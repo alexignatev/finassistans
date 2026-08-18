@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths:
       - "cadastre_pilot_builder.py"
+      - "cadastre_pilot_builder.py.gz.b64"
       - "cadastre_pilot_data/**"
       - ".github/workflows/cadastre-pilot-build.yml"
   workflow_dispatch:
@@ -21,6 +22,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Restore compressed builder
+        if: hashFiles('cadastre_pilot_builder.py.gz.b64') != ''
+        run: base64 -d cadastre_pilot_builder.py.gz.b64 | gzip -d > cadastre_pilot_builder.py
       - name: Install GIS and image libraries
         run: |
           python -m pip install --upgrade \
