@@ -6,6 +6,7 @@ on:
     paths:
       - "cadastre_pilot_builder.py"
       - "cadastre_pilot_builder.py.gz.b64"
+      - "cadastre_pilot_builder.py.gz.b64.part*"
       - "cadastre_pilot_data/**"
       - ".github/workflows/cadastre-pilot-build.yml"
   workflow_dispatch:
@@ -23,8 +24,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Restore compressed builder
-        if: hashFiles('cadastre_pilot_builder.py.gz.b64') != ''
-        run: base64 -d cadastre_pilot_builder.py.gz.b64 | gzip -d > cadastre_pilot_builder.py
+        run: |
+          if compgen -G 'cadastre_pilot_builder.py.gz.b64.part*' > /dev/null; then
+            cat cadastre_pilot_builder.py.gz.b64.part* | base64 -d | gzip -d > cadastre_pilot_builder.py
+          elif [ -f cadastre_pilot_builder.py.gz.b64 ]; then
+            base64 -d cadastre_pilot_builder.py.gz.b64 | gzip -d > cadastre_pilot_builder.py
+          fi
+          python -m py_compile cadastre_pilot_builder.py
       - name: Install GIS and image libraries
         run: |
           python -m pip install --upgrade \
