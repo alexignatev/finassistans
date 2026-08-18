@@ -1,6 +1,11 @@
 name: Cadastre multipart probe
 
 on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "cadastre_pilot/**"
+      - ".github/workflows/cadastre-probe.yml"
   push:
     branches: ["main"]
     paths:
@@ -30,11 +35,24 @@ jobs:
       - name: Query NSPD and count parcel components
         run: python cadastre_pilot/probe.py 2>&1 | tee cadastre_probe.log
 
-      - name: Commit results
+      - name: Preserve logs
         if: always()
         run: |
           mkdir -p cadastre_result
           cp cadastre_probe.log cadastre_result/run.log || true
+
+      - name: Upload probe result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cadastre-probe
+          path: cadastre_result
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Commit results on main push
+        if: github.event_name == 'push'
+        run: |
           git config user.name "cadastre-pilot-bot"
           git config user.email "actions@users.noreply.github.com"
           git add cadastre_result
