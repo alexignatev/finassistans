@@ -31,7 +31,10 @@ jobs:
           base64 -d precise_maps/parcel_all_components.geojson.gz.b64 | gzip -d > precise_maps/input/parcel_all_components.geojson
           cat precise_maps/build_precise_maps_min.py.gz.b64.part* | base64 -d | gzip -d > precise_maps/build_precise_maps.py
           python -m py_compile precise_maps/build_precise_maps.py
-          if compgen -G 'precise_maps/fabdem_patch.py.gz.b64.part*' > /dev/null; then
+          if [ -f precise_maps/fabdem_patch.py.gz ]; then
+            gzip -dc precise_maps/fabdem_patch.py.gz > precise_maps/fabdem_patch.py
+            python -m py_compile precise_maps/fabdem_patch.py
+          elif compgen -G 'precise_maps/fabdem_patch.py.gz.b64.part*' > /dev/null; then
             cat precise_maps/fabdem_patch.py.gz.b64.part* | base64 -d | gzip -d > precise_maps/fabdem_patch.py
             python -m py_compile precise_maps/fabdem_patch.py
           fi
