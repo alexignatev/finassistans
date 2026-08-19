@@ -1,0 +1,49 @@
+name: Build precise cadastral maps
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "precise_maps/**"
+      - ".github/workflows/build-precise-maps.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install geospatial dependencies
+        run: |
+          python -m pip install --upgrade \
+            requests numpy pandas pillow matplotlib scipy \
+            rasterio shapely pyproj pystac-client planetary-computer
+      - name: Restore cadastral geometry
+        run: |
+          mkdir -p precise_maps/input
+          base64 -d precise_maps/parcel_all_components.geojson.gz.b64 | gzip -d > precise_maps/input/parcel_all_components.geojson
+      - name: Build supplemental precise maps
+        run: python precise_maps/build_precise_maps.py 2>&1 | tee precise_maps_build.log
+      - name: Preserve build log
+        if: always()
+        run: |
+          mkdir -p precise_maps_output
+          cp precise_maps_build.log precise_maps_output/build.log || true
+      - name: Upload precise maps package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: precise-maps-22-43-010001-1229
+          path: |
+            precise_maps_output
+            precise_maps_22_43_010001_1229.zip
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
